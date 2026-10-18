@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Typing Speed Test</title>
+
+
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  
+  <header>
+    <img src="assets/images/logo-large.svg">
+    <div>
+      <img src="assets/images/icon-personal-best.svg">
+      <p>Personal best: <span class="best" id="best-score">92 WPM</span></p>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="user-choice">
+      
+      <div class="dash">
+        <p  class="line">WPM: <span id="wcount">0</span></p>
+        <p  class="line">Accuracy: <span id="accuracy">%</span></p>
+        <p  >Time: <span id="time">0:00</span></p>
+      </div>
+    
+      <div class="divider">
+        <div class="dash line">
+          <p>Difficulty</p>
+          <button class="level" id="easy">Easy</button>
+          <button class="level" id="medium">Medium</button>
+          <button class="level" id="hard">Hard</button>
+        </div>
+        
+        <div class="dash">
+          <p>Mode:</p>
+          <button class="level" id="timed">Timed(60s)</button>
+          <button class="level" id="untimed">Passage</button>
+          <input class="level" id="custom" placeholder="Custom time (seconds)"></input>
+        </div>
+      </div>
+  </div>
+  <!-- Passage -->
+   
+  <section id="idle-view" class="typing-section">
+    <div id="start" class="start-overlay">
+
+      <button id="start-btn">Start Typing Test</button>
+      <p>Or click the text and start typing</p>
+    </div>
+    <div>
+      <p id="displayed-txt">And regarding semicolons: JavaScript has a feature called Automatic Semicolon Insertion (ASI)
+         where the engine tries to guess where semicolons go. Sometimes it works, but other times it can lead to silent, 
+         frustrating bugs (especially when lines start with parentheses, square brackets, or template literals).
+         Getting into the habit of adding them—or adopting a formatter like Prettier—will save you hours of debugging later down the line.
+      </p>
+      <input type="text" id="user-input" >
+    </div>
+
+
+    </section>
+
+    <!-- Test Complete Start -->
+
+  
+    <!-- Test Complete Section (Hidden by default, toggle with JS) -->
+    <section class="results-section hidden">
+      
+      <div>
+        <img src="assets/images/pattern-star-2.svg" alt="Star pattern">
+      </div>
+
+      <div>
+        <img src="assets/images/icon-completed.svg" alt="Checkmark icon">
+        <h2>Test Complete!</h2>
+        <p>Solid run. Keep pushing to beat your high score.</p>
+  
+        <div class="results-stats">
+          <p>WPM: <span id="final-wpm">--</span></p>
+          <p>Accuracy: <span id="final-accuracy">--</span></p>
+          <p>Characters: <span id="final-chars">--</span></p>
+        </div>
+        <button class="level" id="restart">Go Again</button>
+      </div>
+
+      <div>
+        <img src="assets/images/pattern-star-1.svg" alt="Star pattern">
+      </div>
+    </section>
+  
+  <!-- Test Complete End -->
+  </main>
+  <footer class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
+    Coded by <a href="#"> Fathi-hussein</a>.
+  </footer>
+  <script type="module" src="index.js"></script>
+</body>
+</html>

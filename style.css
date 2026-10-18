@@ -1,0 +1,381 @@
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 20px 40px;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: black;
+  color: white;
+}
+
+header {
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: gray;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  min-height: 400px; /* Adjust this so it gives the results section enough room */
+}
+
+.best {
+  color: white;
+}
+
+.user-choice {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+  border-bottom: 1px solid gray;
+ 
+}
+
+.divider {
+  display: flex;
+  gap: 20px;
+}
+
+.dash {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.level {
+  padding: 6px 12px;
+  border-radius: 15px;
+  background-color: #1a1a1a;
+  border: 1px solid gray;
+  color: white;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.level:hover {
+  background-color: #333;
+}
+
+.line {
+  padding-right: 15px;
+  border-right: 1px solid gray;
+}
+
+/* Dynamic State Sections */
+.typing-section, .results-section {
+  padding: 40px 0;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+.attribution {  
+  font-size: 0.6875rem; 
+  text-align: center;
+  display: flex; 
+  justify-content: center;
+  align-items:flex-end;
+
+}
+.attribution a { 
+  color: hsl(228, 45%, 44%); 
+}
+/* 1. Make sure your typing section container can act as an anchor point */
+.typing-section {
+  position: relative;
+}
+#displayed-txt{
+  text-align: left;
+  color:gray;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2rem;
+}
+.correct{
+  color:green
+}
+.incorrect{
+  color:red;
+  text-decoration: underline;
+}
+/* 2. Style the curtain overlay to cover the text area */
+.start-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(5px); /* This gives it that nice modern blur effect from the design */
+  z-index: 10; /* Ensures it sits on top of the text */
+}
+
+/* 3. The utility class to drop the curtain (hide it) via JavaScript */
+.hidden {
+  display: none !important;
+}
+
+.selected {
+  background-color: rgb(106, 127, 134);
+  border-color: lightblue;
+}
+
+#user-input {
+  position: absolute;
+  opacity: 0;
+  cursor: default;
+  /* Optional: make it cover your typing area or sit cleanly out of the way */
+  width: 0;
+  height: 0;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Main Results Section Container */
+.results-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; /* Tells it to stop at the bottom of main.container, well before the footer */
+    background-color: #000000; /* Solid background so text underneath doesn't show through */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px; /* Controlled padding instead of 100px */
+    color: #ffffff;
+    font-family: 'system-ui', '-apple-system', sans-serif;
+    z-index: 10; 
+    box-sizing: border-box;
+}
+
+/* Ensure hidden state completely hides it */
+.results-section.hidden {
+    display: none !important;
+}
+/* Hidden utility class */
+.results-section.hidden {
+    display: none !important;
+}
+
+/* Center Content Box */
+.results-section > div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    z-index: 2;
+}
+
+/* Checkmark Icon Container (with glowing ring effect) */
+.results-section img[alt="Checkmark icon"] {
+    width: 60px;
+    height: 60px;
+    background-color: #15221b;
+    border: 2px solid #10b981;
+    border-radius: 50%;
+    padding: 12px;
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.25);
+    margin-bottom: 20px;
+}
+
+/* Title ("Baseline Established!") */
+.results-section h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.01em;
+}
+
+/* Subtitle text */
+.results-section p {
+    color: #9ca3af;
+    font-size: 14px;
+    margin: 0 0 30px 0;
+}
+
+/* Stats Cards Container */
+.results-stats {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    width: 100%;
+    justify-content: center;
+}
+
+/* Individual Stat Box */
+.results-stats p {
+    background-color: #171717;
+    border: 1px solid #262626;
+    border-radius: 8px;
+    padding: 16px 20px;
+    min-width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    font-size: 13px;
+    color: #9ca3af; /* Label color (WPM:, Accuracy:, Characters:) */
+    margin: 0;
+    text-align: left;
+}
+
+/* The Value numbers inside the stats boxes */
+.results-stats span {
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+/* Specific color adjustments for dynamic text */
+#final-accuracy {
+    color: #ef4444; /* Red accent for accuracy */
+}
+
+#final-chars {
+    color: #10b981; /* Green accent for correct chars */
+}
+
+/* Action Button ("Beat This Score") */
+.results-section button#restart {
+    background-color: #ffffff;
+    color: #121212;
+    border: none;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.results-section button#restart:hover {
+    background-color: #e5e5e5;
+}
+
+/* Side decorative star images positioning */
+.results-section > div:first-child,
+.results-section > div:last-child {
+    position: relative;
+    width: 40px;
+}
+
+.results-section > div:first-child img {
+    position: absolute;
+    left: -40px;
+    top: -60px;
+    width: 24px;
+}
+
+.results-section > div:last-child img {
+    position: absolute;
+    right: -40px;
+    top: 20px;
+    width: 28px;
+}
+/* Responsive Styles for Mobile & Tablets */
+
+@media screen and (max-width: 768px) {
+  /* Adjust body margins for smaller screens */
+  body {
+    margin: 10px 15px;
+  }
+
+  /* Stack header items vertically */
+  header {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+
+  /* Make choice options wrap nicely */
+  .user-choice {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .divider {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .line {
+    border-right: none;
+    padding-right: 0;
+  }
+
+  /* Shrink large typing text size on mobile */
+  #displayed-txt {
+    font-size: 1.25rem;
+  }
+
+  /* Stack results stats cards vertically */
+  .results-stats {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .results-stats p {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Adjust results section padding and spacing */
+  .results-section {
+    padding: 20px;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* Hide decorative side elements if they overflow on mobile */
+  .results-section > div:first-child,
+  .results-section > div:last-child {
+    display: none;
+  }
+}
+#custom{
+  width: 150px;
+  padding: 6px 12px;
+  border-radius: 15px;
+  background-color: #1a1a1a;
+  border: 1px solid gray;
+  color: white;
+  font-size: 0.875rem;
+}
+
+#start-btn{
+  padding: 6px 12px;
+  border-radius: 7px;
+  background-color: rgb(94, 118, 226);
+  border: none;
+  color: white;
+  font-size: 0.875rem;
+}
+#start-btn:hover{
+  background-color: rgb(94, 118, 226,0.8);
+  cursor: pointer;
+}
